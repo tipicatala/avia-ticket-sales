@@ -1,0 +1,41 @@
+.root {
+  text-transform: uppercase;
+  display: flex;
+  font-size: 12px;
+  color: rgba(74, 74, 74, 1);
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.sector {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  padding: 15px;
+  border: rgba(223, 229, 236, 1) solid 1px;
+  background-color: white;
+  transition: 300ms ease-in-out background-color;
+
+  &:hover {
+    background-color: #F1FCFF;
+  } 
+
+  &-selected {
+    background-color: #2196F3;
+    border-color: transparent;
+    color: white;
+  }
+
+  &_left {
+    border-right: none;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  &_right {
+    border-left: none;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+}

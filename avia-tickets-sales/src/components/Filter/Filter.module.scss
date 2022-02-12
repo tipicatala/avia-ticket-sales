@@ -1,0 +1,43 @@
+.title {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: rgba(74, 74, 74, 1);
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding: 0 20px;
+}
+
+.root {
+  background-color: white;
+  padding: 20px 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px; 
+  margin-bottom: 20px;
+}
+
+.list {
+  &_item {
+    padding: 10px 20px;
+    transition: background-color 300ms ease-in-out;
+    font-size: 13px;
+    color: rgba(74, 74, 74, 1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      background-color: rgba(241, 252, 255, 1);
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px
+    }
+
+    .checkbox_checked {
+      color: rgba(33, 150, 243, 1);
+    }
+  }
+}
