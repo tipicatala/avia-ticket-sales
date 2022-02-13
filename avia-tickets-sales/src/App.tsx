@@ -4,9 +4,11 @@ import KindSelector from './components/KindSelector'
 import { MainLogo } from './images'
 
 import { overlayFilterData, companyFilterData} from './constants'
-import tickets from '../data/tickets.json'
 
 import s from './App.module.scss'
+import Ticket from './components/Ticket'
+
+import tickets from './data/tickets.json'
 
 function App() {
 
@@ -22,7 +24,11 @@ function App() {
         </div>
         <div className={s.results}>
           <KindSelector />
-          <div></div>
+          <div>
+            {tickets.map(ticket => (
+              <Ticket key={ticket.id} {...ticket}/>
+            ))}
+          </div>
         </div>
       </div>
     </div>

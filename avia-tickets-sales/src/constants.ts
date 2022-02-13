@@ -1,3 +1,6 @@
+import React from "react"
+import { S7Logo, XiamenAirLogo } from "./images"
+
 export const overlayFilterData = [
   {
     name: 'Без пересадок',
@@ -38,3 +41,12 @@ export const companyFilterData = [
     isActive: false,
   },
 ]
+
+interface LogoMap {
+  [key:string]: React.FunctionComponent,
+}
+
+export const logoMap: LogoMap= {
+  "7dc12d0b-ce42-48a0-8673-0dad4d698764": S7Logo,
+  "cddfa038-823b-43b1-b18d-395731881077": XiamenAirLogo,
+}
