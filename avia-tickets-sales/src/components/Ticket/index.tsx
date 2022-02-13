@@ -10,7 +10,7 @@ interface Data {
   segments: string[];
 }
 
-function Ticket({ price, companyId, segments: [ toSegment, fromSegment] }: Data) {
+function Ticket({ price, companyId, segments }: Data) {
   const resolveLogo = (companyId: string) => {
     if ("7dc12d0b-ce42-48a0-8673-0dad4d698764" === companyId) {
       return <XiamenAirLogo />
@@ -32,7 +32,7 @@ function Ticket({ price, companyId, segments: [ toSegment, fromSegment] }: Data)
     }
   }
 
-  const filteredSegments = allSegments.filter(segment => [ toSegment, fromSegment].includes(segment.id))
+  const filteredSegments = allSegments.filter(segment => segments.includes(segment.id))
 
   return (
     <div className={s.root}>

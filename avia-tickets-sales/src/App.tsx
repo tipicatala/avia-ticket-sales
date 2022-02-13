@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from './redux/store'
 
@@ -6,6 +7,7 @@ import KindSelector from './components/KindSelector'
 import Ticket from './components/Ticket'
 
 import tickets from './data/tickets.json'
+import allSegments from './data/segments.json'
 
 import { MainLogo } from './images'
 import { overlayFilterData, companyFilterData } from './constants'
@@ -19,6 +21,20 @@ function App() {
     overlaysFilter: state.overlaysFilter,
     companiesFilter: state.companiesFilter,
   }))
+
+  const filteredTickets = useMemo(() => {
+    return tickets
+    .filter(ticket => companiesFilter.length ? companiesFilter.includes(ticket.companyId) : true)
+    .filter(ticket => {
+      const filteredSegments = allSegments
+        .filter(segment => ticket.segments.includes(segment.id))
+        .filter(segment =>  overlaysFilter.includes(segment.stops ? segment.stops.length.toString() : '0'))
+
+      return overlaysFilter.length ? filteredSegments.length !== 0 : true
+    })
+  }, [companiesFilter, overlaysFilter])
+
+  const renderedTickets = (companiesFilter.length || overlaysFilter.length) ? filteredTickets : tickets
 
   return (
     <div className={s.root}>
@@ -42,8 +58,8 @@ function App() {
         </div>
         <div className={s.results}>
           <KindSelector />
-          <div>
-            {tickets.map(ticket => (
+          <div className={s.tickets_wrapper}>
+            {renderedTickets.map(ticket => (
               <Ticket key={ticket.id} {...ticket}/>
             ))}
           </div>

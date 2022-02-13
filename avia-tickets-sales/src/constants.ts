@@ -1,4 +1,6 @@
 import { store } from './redux/store'
+
+import companies from './data/companies.json'
 interface Prop {
   storeData: string[],
   setter: Function,
@@ -6,64 +8,76 @@ interface Prop {
 interface GetActionProp {
   storeData: string[],
   setter: Function,
-  name: string,
+  id: string,
   shouldeResetOther?: boolean,
   additionalSelections?: string[],
 }
 interface GetIsActiveProp {
   storeData: string[],
-  name: string,
+  id: string,
 }
 
-const getIsActive = ({ storeData, name }:GetIsActiveProp) => storeData.includes(name)
+const getIsActive = ({ storeData, id }:GetIsActiveProp) => storeData.includes(id)
 
-const getAction = ({ storeData , name, setter }:GetActionProp) => {        
-  const filteredData = () => {
-    return storeData.filter((filterItem: string) => filterItem !== name)
+const getAction = ({ storeData , id, setter, additionalSelections }:GetActionProp) => {
+  
+  if (additionalSelections) {
+    store.dispatch(setter(additionalSelections))
+    return
   }
 
-  const newState = storeData.includes(name) ? filteredData() : [...storeData, name ]
+  const filteredData = () => {
+    return storeData.filter((filterItem: string) => filterItem !== id)
+  }
+
+  const newState = storeData.includes(id) ? filteredData() : [...storeData, id ]
 
   store.dispatch(setter(newState))
 }
 
 export const overlayFilterData = [
   {
+    id: '0',
     name: 'Без пересадок',
-    isActive: ({ storeData }:Prop) => getIsActive({ storeData, name: 'Без пересадок' }),
-    action: (props:Prop) => getAction({ ...props, name: 'Без пересадок' }),
+    isActive: ({ storeData }:Prop) => getIsActive({ storeData, id: '0' }),
+    action: (props:Prop) => getAction({ ...props, id: '0' }),
   },
   {
+    id: '1',
     name: '1 пересадка',
-    isActive: ({ storeData }:Prop) => getIsActive({ storeData, name: '1 пересадка' }),
-    action: (props:Prop) => getAction({ ...props, name: '1 пересадка' }),
+    isActive: ({ storeData }:Prop) => getIsActive({ storeData, id: '1' }),
+    action: (props:Prop) => getAction({ ...props, id: '1' }),
   },
   {
+    id: '2',
     name: '2 пересадки',
-    isActive: (props:Prop) => getIsActive({ ...props, name: '2 пересадки' }),
-    action: (props:Prop) => getAction({ ...props, name: '2 пересадки' }),
+    isActive: (props:Prop) => getIsActive({ ...props, id: '2' }),
+    action: (props:Prop) => getAction({ ...props, id: '2' }),
   },
   {
+    id: '3',
     name: '3 пересадки',
-    isActive: (props:Prop) => getIsActive({ ...props, name: '3 пересадки' }),
-    action: (props:Prop) => getAction({ ...props, name: '3 пересадки' }),
+    isActive: (props:Prop) => getIsActive({ ...props, id: '3' }),
+    action: (props:Prop) => getAction({ ...props, id: '3' }),
   },
 ]
 
 export const companyFilterData = [
   {
     name: 'Все',
-    isActive: (props:Prop) => getIsActive({ ...props, name: 'Все' }),
-    action: (props:Prop) => getAction({ ...props, name: 'Все' }),
+    isActive: (props:Prop) => companies.every(el => props.storeData.includes(el.id) ),
+    action: (props:Prop) => getAction({ ...props, id: 'Все', additionalSelections: companies.map(el => el.id ) }),
   },
   {
     name: 'S7 Airlines',
-    isActive: (props:Prop) => getIsActive({ ...props, name: 'S7 Airlines' }),
-    action: (props:Prop) => getAction({ ...props, name: 'S7 Airlines' }),
+    id: 'cddfa038-823b-43b1-b18d-395731881077',
+    isActive: (props:Prop) => getIsActive({ ...props, id: 'cddfa038-823b-43b1-b18d-395731881077' }),
+    action: (props:Prop) => getAction({ ...props, id: 'cddfa038-823b-43b1-b18d-395731881077' }),
   },
   {
     name: 'XiamenAir',
-    isActive: (props:Prop) => getIsActive({ ...props, name: 'XiamenAir' }),
-    action: (props:Prop) => getAction({ ...props, name: 'XiamenAir' }),
+    id: '7dc12d0b-ce42-48a0-8673-0dad4d698764',
+    isActive: (props:Prop) => getIsActive({ ...props, id: '7dc12d0b-ce42-48a0-8673-0dad4d698764' }),
+    action: (props:Prop) => getAction({ ...props, id: '7dc12d0b-ce42-48a0-8673-0dad4d698764' }),
   },
 ]
