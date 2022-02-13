@@ -11,10 +11,12 @@ interface Data {
 }
 
 function Ticket({ price, companyId, segments: [ toSegment, fromSegment] }: Data) {
-
   const resolveLogo = (companyId: string) => {
-    return "7dc12d0b-ce42-48a0-8673-0dad4d698764" === companyId
-      ? <XiamenAirLogo/> : <S7Logo/>
+    if ("7dc12d0b-ce42-48a0-8673-0dad4d698764" === companyId) {
+      return <XiamenAirLogo />
+    }
+
+    return <S7Logo/>
   }
 
   const convertHourMinutes = (duration:number) => {
@@ -36,7 +38,7 @@ function Ticket({ price, companyId, segments: [ toSegment, fromSegment] }: Data)
     <div className={s.root}>
       <div className={s.top}>
         <div className={s.price}>
-          {price.toLocaleString('ru')}
+          {price.toLocaleString('ru')} P
         </div>
         <div className={s.logo}>
           {resolveLogo(companyId)}

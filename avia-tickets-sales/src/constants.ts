@@ -1,52 +1,69 @@
-import React from "react"
-import { S7Logo, XiamenAirLogo } from "./images"
+import { store } from './redux/store'
+interface Prop {
+  storeData: string[],
+  setter: Function,
+}
+interface GetActionProp {
+  storeData: string[],
+  setter: Function,
+  name: string,
+  shouldeResetOther?: boolean,
+  additionalSelections?: string[],
+}
+interface GetIsActiveProp {
+  storeData: string[],
+  name: string,
+}
+
+const getIsActive = ({ storeData, name }:GetIsActiveProp) => storeData.includes(name)
+
+const getAction = ({ storeData , name, setter }:GetActionProp) => {        
+  const filteredData = () => {
+    return storeData.filter((filterItem: string) => filterItem !== name)
+  }
+
+  const newState = storeData.includes(name) ? filteredData() : [...storeData, name ]
+
+  store.dispatch(setter(newState))
+}
 
 export const overlayFilterData = [
   {
     name: 'Без пересадок',
-    action: () => {},
-    isActive: false,
+    isActive: ({ storeData }:Prop) => getIsActive({ storeData, name: 'Без пересадок' }),
+    action: (props:Prop) => getAction({ ...props, name: 'Без пересадок' }),
   },
   {
-    name: '1 пересадока',
-    action: () => {},
-    isActive: false,
+    name: '1 пересадка',
+    isActive: ({ storeData }:Prop) => getIsActive({ storeData, name: '1 пересадка' }),
+    action: (props:Prop) => getAction({ ...props, name: '1 пересадка' }),
   },
   {
     name: '2 пересадки',
-    action: () => {},
-    isActive: false,
+    isActive: (props:Prop) => getIsActive({ ...props, name: '2 пересадки' }),
+    action: (props:Prop) => getAction({ ...props, name: '2 пересадки' }),
   },
   {
     name: '3 пересадки',
-    action: () => {},
-    isActive: false,
+    isActive: (props:Prop) => getIsActive({ ...props, name: '3 пересадки' }),
+    action: (props:Prop) => getAction({ ...props, name: '3 пересадки' }),
   },
 ]
 
 export const companyFilterData = [
   {
     name: 'Все',
-    action: () => {},
-    isActive: true,
+    isActive: (props:Prop) => getIsActive({ ...props, name: 'Все' }),
+    action: (props:Prop) => getAction({ ...props, name: 'Все' }),
   },
   {
     name: 'S7 Airlines',
-    action: () => {},
-    isActive: false,
+    isActive: (props:Prop) => getIsActive({ ...props, name: 'S7 Airlines' }),
+    action: (props:Prop) => getAction({ ...props, name: 'S7 Airlines' }),
   },
   {
     name: 'XiamenAir',
-    action: () => {},
-    isActive: false,
+    isActive: (props:Prop) => getIsActive({ ...props, name: 'XiamenAir' }),
+    action: (props:Prop) => getAction({ ...props, name: 'XiamenAir' }),
   },
 ]
-
-interface LogoMap {
-  [key:string]: React.FunctionComponent,
-}
-
-export const logoMap: LogoMap= {
-  "7dc12d0b-ce42-48a0-8673-0dad4d698764": S7Logo,
-  "cddfa038-823b-43b1-b18d-395731881077": XiamenAirLogo,
-}
