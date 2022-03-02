@@ -1,0 +1,43 @@
+.root {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 24px;
+  color: #2196F3;
+  font-weight: 600;
+}
+
+.segment {
+  margin-top: 10px;
+  display: flex;
+}
+
+.overview {
+  width: 33%;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 12px;
+  color: #A0B0B9;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.value {
+  font-weight: 600;
+  font-size: 14px;
+  color: #4A4A4A;
+  line-height: 1.5;
+}
